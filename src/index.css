@@ -1,0 +1,32 @@
+@import './assets/fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.star-wars-font {
+  font-family: 'Star Jedi', sans-serif !important;
+  letter-spacing: 2px;
+}
+
+.special-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+.regular-card {
+  background: linear-gradient(135deg, #434343 0%, #000000 100%);
+}
