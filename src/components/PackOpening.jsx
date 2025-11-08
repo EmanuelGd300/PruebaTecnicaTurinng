@@ -12,6 +12,7 @@ const PackOpening = () => {
   const [currentPackIndex, setCurrentPackIndex] = useState(null);
   const [loading, setLoading] = useState(false);
   const [actionsCompleted, setActionsCompleted] = useState({});
+  const [fadedCards, setFadedCards] = useState({});
 
   const handleOpenPack = async (index) => {
     setLoading(true);
@@ -22,14 +23,23 @@ const PackOpening = () => {
     const cards = [];
     
     for (const { type, id } of config) {
-      try {
-        let data;
-        if (type === 'film') data = await fetchFilm(id);
-        else if (type === 'person') data = await fetchPerson(id);
-        else data = await fetchStarship(id);
-        if (data) cards.push({ type, id, data });
-      } catch (error) {
-        console.error(`Error fetching ${type} ${id}:`, error);
+      let attempts = 0;
+      let success = false;
+      
+      while (!success && attempts < 10) {
+        try {
+          let data;
+          if (type === 'film') data = await fetchFilm(id + attempts);
+          else if (type === 'person') data = await fetchPerson(id + attempts);
+          else data = await fetchStarship(id + attempts);
+          
+          if (data) {
+            cards.push({ type, id: id + attempts, data });
+            success = true;
+          }
+        } catch (error) {
+          attempts++;
+        }
       }
     }
 
@@ -40,12 +50,14 @@ const PackOpening = () => {
 
   const handleAction = (index, type, id, data, isAdd) => {
     if (isAdd) addCard(type, id, data);
+    setFadedCards(prev => ({ ...prev, [index]: true }));
     setActionsCompleted(prev => ({ ...prev, [index]: true }));
   };
 
   const handleClosePack = () => {
     setOpenedCards([]);
     setCurrentPackIndex(null);
+    setFadedCards({});
   };
 
   const allActionsCompleted = openedCards.length > 0 && 
@@ -96,15 +108,20 @@ const PackOpening = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
               {openedCards.map((card, idx) => (
-                <Card
+                <motion.div
                   key={idx}
-                  type={card.type}
-                  id={card.id}
-                  data={card.data}
-                  hasCard={hasCard(card.type, card.id)}
-                  onAdd={() => handleAction(idx, card.type, card.id, card.data, true)}
-                  onDiscard={() => handleAction(idx, card.type, card.id, card.data, false)}
-                />
+                  animate={{ opacity: fadedCards[idx] ? 0.3 : 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Card
+                    type={card.type}
+                    id={card.id}
+                    data={card.data}
+                    hasCard={hasCard(card.type, card.id)}
+                    onAdd={() => handleAction(idx, card.type, card.id, card.data, true)}
+                    onDiscard={() => handleAction(idx, card.type, card.id, card.data, false)}
+                  />
+                </motion.div>
               ))}
             </div>
 

@@ -9,12 +9,51 @@ const Card = ({ type, id, data, onAdd, onDiscard, hasCard }) => {
 
   return (
     <motion.div
-      className={`${isSpecial ? 'special-card' : 'regular-card'} rounded-xl p-6 min-h-[400px] flex flex-col justify-between`}
+      className={`${isSpecial ? 'special-card' : 'regular-card'} rounded-xl p-6 min-h-[400px] flex flex-col justify-between relative overflow-hidden`}
       initial={{ rotateY: 90, opacity: 0 }}
       animate={{ rotateY: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
       whileHover={{ scale: 1.05 }}
     >
+      {isSpecial && (
+        <>
+          <motion.div
+            className="absolute inset-0 pointer-events-none z-10"
+            animate={{ 
+              boxShadow: [
+                '0 0 20px rgba(255, 232, 31, 0.5)',
+                '0 0 40px rgba(255, 232, 31, 0.8)',
+                '0 0 20px rgba(255, 232, 31, 0.5)'
+              ]
+            }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          />
+          <motion.div className="absolute inset-0 pointer-events-none z-10">
+            {[...Array(30)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-yellow-400 rounded-full shadow-lg"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  filter: 'blur(1px)'
+                }}
+                animate={{
+                  y: [0, -30, 0],
+                  x: [0, Math.random() * 20 - 10, 0],
+                  opacity: [0, 1, 0],
+                  scale: [0, 1.5, 0]
+                }}
+                transition={{
+                  duration: 1.5 + Math.random(),
+                  repeat: Infinity,
+                  delay: Math.random() * 2,
+                }}
+              />
+            ))}
+          </motion.div>
+        </>
+      )}
       <div>
         <div className="flex justify-center mb-4">
           <img 
@@ -38,11 +77,11 @@ const Card = ({ type, id, data, onAdd, onDiscard, hasCard }) => {
 
         <div className="text-sm space-y-1">
           {data.director && <p>Director: {data.director}</p>}
-          {data.release_date && <p>Fecha: {data.release_date}</p>}
-          {data.height && <p>Altura: {data.height}</p>}
-          {data.gender && <p>Género: {data.gender}</p>}
-          {data.model && <p>Modelo: {data.model}</p>}
-          {data.manufacturer && <p>Fabricante: {data.manufacturer}</p>}
+          {data.release_date && <p>Release Date: {data.release_date}</p>}
+          {data.height && <p>Height: {data.height}</p>}
+          {data.gender && <p>Gender: {data.gender}</p>}
+          {data.model && <p>Model: {data.model}</p>}
+          {data.manufacturer && <p>Manufacturer: {data.manufacturer}</p>}
         </div>
       </div>
 

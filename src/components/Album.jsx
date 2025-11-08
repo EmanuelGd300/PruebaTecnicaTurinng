@@ -48,8 +48,15 @@ const Album = () => {
                 key={id}
                 className="aspect-square rounded-lg overflow-hidden flex items-center justify-center cursor-pointer relative"
                 style={card ? { background: gradient } : {}}
-                whileHover={{ scale: card ? 1.1 : 1 }}
                 onClick={() => card && handleCardClick(type, id)}
+                animate={card && isSpecial ? {
+                  boxShadow: [
+                    '0 0 15px rgba(255, 232, 31, 0.5), 5px 5px 20px rgba(255, 232, 31, 0.3)',
+                    '0 0 20px rgba(255, 232, 31, 0.8), -5px -5px 25px rgba(255, 232, 31, 0.5)',
+                    '0 0 15px rgba(255, 232, 31, 0.5), 5px 5px 20px rgba(255, 232, 31, 0.3)'
+                  ]
+                } : {}}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               >
                 {card ? (
                   <>
@@ -64,9 +71,16 @@ const Album = () => {
                       </div>
                     </div>
                     {isSpecial && (
-                      <div className="absolute top-1 right-1">
-                        <span className="text-yellow-400 text-lg">⭐</span>
-                      </div>
+                      <motion.div 
+                        className="absolute top-1 right-1"
+                        animate={{ 
+                          scale: [1, 1.3, 1],
+                          rotate: [0, 10, -10, 0]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                      >
+                        <span className="text-yellow-400 text-lg drop-shadow-lg">⭐</span>
+                      </motion.div>
                     )}
                   </>
                 ) : (
