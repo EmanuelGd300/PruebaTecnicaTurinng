@@ -20,7 +20,8 @@ export const AlbumProvider = ({ children }) => {
 
   const handleClearStorage = () => {
     localStorage.clear();
-    window.location.reload();
+    setShowClearModal(false);
+    window.location.href = '/';
   };
 
   useEffect(() => {

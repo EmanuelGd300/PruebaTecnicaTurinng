@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAlbum } from '../context/AlbumContext';
+import introVideo from '../assets/videos/Intro.mp4';
 
 const GlobalModals = () => {
   const { showClearModal, setShowClearModal, showIntroModal, setShowIntroModal, handleClearStorage } = useAlbum();
@@ -66,7 +67,7 @@ const GlobalModals = () => {
               ×
             </button>
             <video
-              src="/src/assets/videos/Intro.mp4"
+              src={introVideo}
               controls
               autoPlay
               className="w-full rounded-xl border-2 border-star-yellow"

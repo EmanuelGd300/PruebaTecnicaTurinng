@@ -7,6 +7,7 @@ import Album from './components/Album';
 import Footer from './components/Footer';
 import IntroModal from './components/IntroModal';
 import GlobalModals from './components/GlobalModals';
+import backgroundGif from './assets/background/Background.gif';
 
 function App() {
   return (
@@ -14,12 +15,13 @@ function App() {
       <BrowserRouter>
         <div className="min-h-screen text-white flex flex-col relative bg-black">
           <div className="absolute inset-0 z-0" style={{ 
-            backgroundImage: 'url(/src/assets/background/Background.gif)',
+            backgroundImage: `url(${backgroundGif})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
             opacity: 0.3
           }}></div>
+
           <StarBackground />
           <div className="relative z-10 flex flex-col min-h-screen">
             <IntroModal />
