@@ -18,40 +18,28 @@ const Footer = () => {
           </div>
 
           <div className="text-white text-center space-y-2">
-            <p className="flex items-center gap-2 justify-center">
-              <span className="text-star-yellow">📧</span>
-              <a href="mailto:emmanuelgodi22@gmail.com" className="hover:text-star-yellow transition-colors">
-                emmanuelgodi22<span style={{fontFamily: 'sans-serif'}}>@</span>gmail.com
-              </a>
-            </p>
-            <p className="flex items-center gap-2 justify-center">
-              <span className="text-star-yellow">📱</span>
-              <a href="tel:3136640809" className="hover:text-star-yellow transition-colors">
-                313 664 0809
-              </a>
-            </p>
-            <p className="flex items-center gap-2 justify-center">
-              <span className="text-star-yellow">💼</span>
-              <a 
-                href="https://www.linkedin.com/in/egodi/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-star-yellow transition-colors"
-              >
-                LinkedIn
-              </a>
-            </p>
-            <p className="flex items-center gap-2 justify-center">
-              <span className="text-star-yellow">🌐</span>
-              <a 
-                href="https://689f8d330b54b40008d1d849--emanuel-gomez-diaz.netlify.app/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-star-yellow transition-colors"
-              >
-                Portafolio
-              </a>
-            </p>
+            <a href="mailto:emmanuelgodi22@gmail.com" className="hover:text-star-yellow transition-colors block">
+              emmanuelgodi22<span style={{fontFamily: 'sans-serif'}}>@</span>gmail.com
+            </a>
+            <a href="tel:3136640809" className="hover:text-star-yellow transition-colors block">
+              313 664 0809
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/egodi/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-star-yellow transition-colors block"
+            >
+              LinkedIn
+            </a>
+            <a 
+              href="https://689f8d330b54b40008d1d849--emanuel-gomez-diaz.netlify.app/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-star-yellow transition-colors block"
+            >
+              Portafolio
+            </a>
           </div>
         </div>
 

@@ -59,8 +59,8 @@ export const AlbumProvider = ({ children }) => {
     return !!album[type + 's']?.[id];
   };
 
-  const lockPack = (index) => {
-    setPackTimers(prev => ({ ...prev, [index]: 60 }));
+  const lockAllPacks = () => {
+    setPackTimers({ 0: 60, 1: 60, 2: 60, 3: 60 });
   };
 
   const getPackTimer = (index) => {
@@ -72,7 +72,7 @@ export const AlbumProvider = ({ children }) => {
       album, 
       addCard, 
       hasCard, 
-      lockPack,
+      lockAllPacks,
       getPackTimer,
       showClearModal,
       setShowClearModal,

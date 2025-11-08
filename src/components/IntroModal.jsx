@@ -91,7 +91,7 @@ const IntroModal = () => {
                 onClick={handleVideoEnd}
                 className="absolute -top-12 right-0 text-white text-4xl hover:text-star-yellow"
               >
-                ✕
+                ×
               </button>
               <video
                 src={introVideo}

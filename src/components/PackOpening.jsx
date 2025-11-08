@@ -7,7 +7,7 @@ import { generatePackConfiguration } from '../utils/helpers';
 import { fetchFilm, fetchPerson, fetchStarship } from '../services/swapiService';
 
 const PackOpening = () => {
-  const { lockPack, getPackTimer, hasCard, addCard } = useAlbum();
+  const { lockAllPacks, getPackTimer, hasCard, addCard } = useAlbum();
   const [openedCards, setOpenedCards] = useState([]);
   const [currentPackIndex, setCurrentPackIndex] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ const PackOpening = () => {
   const handleOpenPack = async (index) => {
     setLoading(true);
     setCurrentPackIndex(index);
-    lockPack(index);
+    lockAllPacks();
     
     const config = generatePackConfiguration();
     const cards = [];

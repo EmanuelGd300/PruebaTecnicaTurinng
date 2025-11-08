@@ -12,8 +12,10 @@ export const getCardGradient = (type, id) => {
 };
 
 export const getCardIcon = (type) => {
-  if (type === 'film') return peliculasIcon;
-  if (type === 'person') return personajesIcon;
-  if (type === 'starship') return navesIcon;
-  return personajesIcon;
+  const icons = {
+    film: peliculasIcon,
+    person: personajesIcon,
+    starship: navesIcon
+  };
+  return icons[type] || personajesIcon;
 };

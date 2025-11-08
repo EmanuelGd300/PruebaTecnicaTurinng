@@ -2,20 +2,14 @@ import axios from 'axios';
 
 const API_BASE = 'https://swapi.dev/api';
 
-export const fetchFilm = async (id) => {
-  const { data } = await axios.get(`${API_BASE}/films/${id}/`);
+const fetchResource = async (resource, id) => {
+  const { data } = await axios.get(`${API_BASE}/${resource}/${id}/`);
   return data;
 };
 
-export const fetchPerson = async (id) => {
-  const { data } = await axios.get(`${API_BASE}/people/${id}/`);
-  return data;
-};
-
-export const fetchStarship = async (id) => {
-  const { data } = await axios.get(`${API_BASE}/starships/${id}/`);
-  return data;
-};
+export const fetchFilm = (id) => fetchResource('films', id);
+export const fetchPerson = (id) => fetchResource('people', id);
+export const fetchStarship = (id) => fetchResource('starships', id);
 
 export const CARD_TYPES = {
   FILM: 'film',

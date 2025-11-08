@@ -1,35 +1,43 @@
 import { CARD_TYPES, CARD_LIMITS, SPECIAL_LIMITS } from '../services/swapiService';
 
+const getRandomId = (limit) => Math.floor(Math.random() * limit) + 1;
+
 export const generatePackConfiguration = () => {
   const config = Math.random() < 0.5 ? 1 : 2;
-  const cards = [];
   
   if (config === 1) {
-    cards.push({ type: CARD_TYPES.FILM, id: Math.floor(Math.random() * CARD_LIMITS.FILM) + 1 });
-    cards.push({ type: CARD_TYPES.PERSON, id: Math.floor(Math.random() * CARD_LIMITS.PERSON) + 1 });
-    cards.push({ type: CARD_TYPES.PERSON, id: Math.floor(Math.random() * CARD_LIMITS.PERSON) + 1 });
-    cards.push({ type: CARD_TYPES.PERSON, id: Math.floor(Math.random() * CARD_LIMITS.PERSON) + 1 });
-    cards.push({ type: CARD_TYPES.STARSHIP, id: Math.floor(Math.random() * CARD_LIMITS.STARSHIP) + 1 });
-  } else {
-    cards.push({ type: CARD_TYPES.PERSON, id: Math.floor(Math.random() * CARD_LIMITS.PERSON) + 1 });
-    cards.push({ type: CARD_TYPES.PERSON, id: Math.floor(Math.random() * CARD_LIMITS.PERSON) + 1 });
-    cards.push({ type: CARD_TYPES.PERSON, id: Math.floor(Math.random() * CARD_LIMITS.PERSON) + 1 });
-    cards.push({ type: CARD_TYPES.STARSHIP, id: Math.floor(Math.random() * CARD_LIMITS.STARSHIP) + 1 });
-    cards.push({ type: CARD_TYPES.STARSHIP, id: Math.floor(Math.random() * CARD_LIMITS.STARSHIP) + 1 });
+    return [
+      { type: CARD_TYPES.FILM, id: getRandomId(CARD_LIMITS.FILM) },
+      { type: CARD_TYPES.PERSON, id: getRandomId(CARD_LIMITS.PERSON) },
+      { type: CARD_TYPES.PERSON, id: getRandomId(CARD_LIMITS.PERSON) },
+      { type: CARD_TYPES.PERSON, id: getRandomId(CARD_LIMITS.PERSON) },
+      { type: CARD_TYPES.STARSHIP, id: getRandomId(CARD_LIMITS.STARSHIP) }
+    ];
   }
   
-  return cards;
+  return [
+    { type: CARD_TYPES.PERSON, id: getRandomId(CARD_LIMITS.PERSON) },
+    { type: CARD_TYPES.PERSON, id: getRandomId(CARD_LIMITS.PERSON) },
+    { type: CARD_TYPES.PERSON, id: getRandomId(CARD_LIMITS.PERSON) },
+    { type: CARD_TYPES.STARSHIP, id: getRandomId(CARD_LIMITS.STARSHIP) },
+    { type: CARD_TYPES.STARSHIP, id: getRandomId(CARD_LIMITS.STARSHIP) }
+  ];
 };
 
 export const isSpecialCard = (type, id) => {
-  if (type === CARD_TYPES.FILM && id <= SPECIAL_LIMITS.FILM) return true;
-  if (type === CARD_TYPES.PERSON && id <= SPECIAL_LIMITS.PERSON) return true;
-  if (type === CARD_TYPES.STARSHIP && id <= SPECIAL_LIMITS.STARSHIP) return true;
-  return false;
+  const limits = {
+    [CARD_TYPES.FILM]: SPECIAL_LIMITS.FILM,
+    [CARD_TYPES.PERSON]: SPECIAL_LIMITS.PERSON,
+    [CARD_TYPES.STARSHIP]: SPECIAL_LIMITS.STARSHIP
+  };
+  return id <= (limits[type] || 0);
 };
 
 export const getCardSection = (type) => {
-  if (type === CARD_TYPES.FILM) return 'Películas';
-  if (type === CARD_TYPES.PERSON) return 'Personajes';
-  if (type === CARD_TYPES.STARSHIP) return 'Naves';
+  const sections = {
+    [CARD_TYPES.FILM]: 'Películas',
+    [CARD_TYPES.PERSON]: 'Personajes',
+    [CARD_TYPES.STARSHIP]: 'Naves'
+  };
+  return sections[type];
 };
