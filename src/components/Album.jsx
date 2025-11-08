@@ -70,7 +70,9 @@ const Album = () => {
                     )}
                   </>
                 ) : (
-                  <div className="text-center p-2 bg-gray-800 border-2 border-gray-700 w-full h-full flex items-center justify-center">
+                  <div className={`text-center p-2 border-2 w-full h-full flex items-center justify-center ${
+                    isSpecial ? 'bg-yellow-500 border-yellow-600' : 'bg-gray-600 border-gray-700'
+                  }`}>
                     <div className="text-xl font-bold text-white">{id}</div>
                   </div>
                 )}
@@ -102,7 +104,7 @@ const Album = () => {
             onClick={() => setSelectedCard(null)}
           >
             <motion.div
-              className="rounded-xl overflow-hidden max-w-2xl w-full text-white shadow-2xl"
+              className="rounded-xl overflow-hidden max-w-md w-full text-white shadow-2xl"
               style={{ background: getCardGradient(selectedCard.type, selectedCard.id) }}
               initial={{ scale: 0.8, rotateY: 90 }}
               animate={{ scale: 1, rotateY: 0 }}
@@ -110,17 +112,17 @@ const Album = () => {
               onClick={(e) => e.stopPropagation()}
             >
               {loading ? (
-                <div className="text-center text-2xl p-8">Cargando...</div>
+                <div className="text-center text-xl p-6">Cargando...</div>
               ) : cardDetails ? (
                 <div>
-                  <div className="relative h-96 flex items-center justify-center bg-black bg-opacity-20">
+                  <div className="relative h-48 flex items-center justify-center bg-black bg-opacity-20">
                     <img 
                       src={getCardIcon(selectedCard.type)} 
                       alt="Icon"
-                      className="w-48 h-48 object-contain opacity-60"
+                      className="w-24 h-24 object-contain opacity-60"
                     />
-                    <div className="absolute top-4 left-4">
-                      <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    <div className="absolute top-2 left-2">
+                      <span className={`px-2 py-1 rounded-full text-xs font-bold ${
                         isSpecialCard(selectedCard.type, selectedCard.id) 
                           ? 'bg-yellow-400 text-black' 
                           : 'bg-gray-600 text-white'
@@ -130,16 +132,16 @@ const Album = () => {
                     </div>
                     <button
                       onClick={() => setSelectedCard(null)}
-                      className="absolute top-4 right-4 text-4xl hover:text-star-yellow bg-black bg-opacity-70 w-12 h-12 rounded-full"
+                      className="absolute top-2 right-2 text-3xl hover:text-star-yellow bg-black bg-opacity-70 w-10 h-10 rounded-full"
                     >
                       ×
                     </button>
                   </div>
                   
-                  <div className="p-8 bg-black bg-opacity-30">
-                    <h3 className="text-3xl font-bold mb-6">{cardDetails.title || cardDetails.name}</h3>
+                  <div className="p-4 bg-black bg-opacity-30">
+                    <h3 className="text-xl font-bold mb-3">{cardDetails.title || cardDetails.name}</h3>
                     
-                    <div className="space-y-2 text-lg">
+                    <div className="space-y-1 text-sm">
                       {Object.entries(cardDetails).map(([key, value]) => {
                         if (typeof value === 'string' && !key.includes('url') && !key.includes('created') && !key.includes('edited')) {
                           return (

@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { isSpecialCard, getCardSection } from '../utils/helpers';
+import { getCardIcon } from '../utils/imageHelper';
 
 const Card = ({ type, id, data, onAdd, onDiscard, hasCard }) => {
   const isSpecial = isSpecialCard(type, id);
   const section = getCardSection(type);
+  const icon = getCardIcon(type);
 
   return (
     <motion.div
@@ -14,6 +16,14 @@ const Card = ({ type, id, data, onAdd, onDiscard, hasCard }) => {
       whileHover={{ scale: 1.05 }}
     >
       <div>
+        <div className="flex justify-center mb-4">
+          <img 
+            src={icon} 
+            alt={section}
+            className="w-20 h-20 object-contain opacity-70"
+          />
+        </div>
+
         <div className="flex justify-between items-start mb-4">
           <span className={`px-3 py-1 rounded-full text-xs font-bold ${
             isSpecial ? 'bg-black text-yellow-400' : 'bg-gray-700 text-white'

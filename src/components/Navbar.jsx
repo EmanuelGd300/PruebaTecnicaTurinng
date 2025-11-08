@@ -22,7 +22,7 @@ const Navbar = () => {
           <div className="flex gap-3">
             <motion.button
               onClick={() => setShowIntroModal(true)}
-              className="px-4 py-2 rounded-lg font-semibold bg-star-yellow text-black hover:bg-yellow-300 text-sm"
+              className="px-4 py-2 rounded-lg font-semibold bg-gray-800 text-white hover:bg-gray-700 text-sm"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -45,7 +45,7 @@ const Navbar = () => {
                     ? 'bg-star-yellow text-black'
                     : 'bg-gray-800 text-white hover:bg-gray-700'
                 }`}
-                whileHover={{ scale: 1.05 }}
+                whileHover={location.pathname !== '/packs' ? { scale: 1.05 } : {}}
                 whileTap={{ scale: 0.95 }}
               >
                 obtener Láminas
@@ -59,7 +59,7 @@ const Navbar = () => {
                     ? 'bg-star-yellow text-black'
                     : 'bg-gray-800 text-white hover:bg-gray-700'
                 }`}
-                whileHover={{ scale: 1.05 }}
+                whileHover={location.pathname !== '/album' ? { scale: 1.05 } : {}}
                 whileTap={{ scale: 0.95 }}
               >
                 Mi Álbum
