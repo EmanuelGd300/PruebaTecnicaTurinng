@@ -7,7 +7,7 @@ import { generatePackConfiguration } from '../utils/helpers';
 import { fetchFilm, fetchPerson, fetchStarship } from '../services/swapiService';
 
 const PackOpening = () => {
-  const { packTimers, lockPacks, hasCard, addCard } = useAlbum();
+  const { lockPack, getPackTimer, hasCard, addCard } = useAlbum();
   const [openedCards, setOpenedCards] = useState([]);
   const [currentPackIndex, setCurrentPackIndex] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -16,24 +16,24 @@ const PackOpening = () => {
   const handleOpenPack = async (index) => {
     setLoading(true);
     setCurrentPackIndex(index);
-    lockPacks(index);
+    lockPack(index);
     
     const config = generatePackConfiguration();
-    const cards = await Promise.all(
-      config.map(async ({ type, id }) => {
+    const cards = [];
+    
+    for (const { type, id } of config) {
+      try {
         let data;
-        try {
-          if (type === 'film') data = await fetchFilm(id);
-          else if (type === 'person') data = await fetchPerson(id);
-          else data = await fetchStarship(id);
-          return { type, id, data };
-        } catch (error) {
-          return null;
-        }
-      })
-    );
+        if (type === 'film') data = await fetchFilm(id);
+        else if (type === 'person') data = await fetchPerson(id);
+        else data = await fetchStarship(id);
+        if (data) cards.push({ type, id, data });
+      } catch (error) {
+        console.error(`Error fetching ${type} ${id}:`, error);
+      }
+    }
 
-    setOpenedCards(cards.filter(c => c !== null));
+    setOpenedCards(cards);
     setActionsCompleted({});
     setLoading(false);
   };
@@ -76,8 +76,8 @@ const PackOpening = () => {
                     key={i}
                     index={i}
                     onOpen={handleOpenPack}
-                    isLocked={packTimers[i] > 0}
-                    timer={packTimers[i]}
+                    isLocked={getPackTimer(i) > 0}
+                    timer={getPackTimer(i)}
                   />
                 ))}
               </div>
@@ -118,7 +118,7 @@ const PackOpening = () => {
                   onClick={handleClosePack}
                   className="bg-star-yellow text-black px-8 py-4 rounded-lg font-bold text-xl hover:bg-yellow-300 transition-colors"
                 >
-                  Abrir Otro Sobre
+                  Abrir otro Sobre
                 </button>
               </motion.div>
             )}

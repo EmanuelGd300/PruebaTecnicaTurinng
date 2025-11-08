@@ -9,9 +9,6 @@ export default {
         'star-yellow': '#FFE81F',
         'space-black': '#000000',
       },
-      fontFamily: {
-        'star-wars': ['Star Jedi', 'sans-serif'],
-      },
     },
   },
   plugins: [],

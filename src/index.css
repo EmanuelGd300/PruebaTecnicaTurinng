@@ -1,4 +1,11 @@
-@import './assets/fonts.css';
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'StarJedi';
+  src: url('./assets/fonts/Starjedi.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @tailwind base;
 @tailwind components;
@@ -11,22 +18,27 @@
 }
 
 body {
-  font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'StarJedi', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  letter-spacing: 2px;
+  text-transform: lowercase;
 }
 
-.star-wars-font {
-  font-family: 'Star Jedi', sans-serif !important;
-  letter-spacing: 2px;
+body::before {
+  content: '';
+  font-family: sans-serif;
 }
 
 .special-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+  background: linear-gradient(135deg, #FFE81F 0%, #FFA500 100%);
+  box-shadow: 0 0 30px rgba(255, 232, 31, 0.6);
+  border: 2px solid #FFE81F;
 }
 
 .regular-card {
-  background: linear-gradient(135deg, #434343 0%, #000000 100%);
+  background: linear-gradient(135deg, #E8E8E8 0%, #B8B8B8 100%);
+  border: 2px solid #888;
+  color: #000;
 }

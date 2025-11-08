@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useAlbum } from '../context/AlbumContext';
 import sobre1 from '../assets/images/Sobre1.png';
 import sobre2 from '../assets/images/Sobre2.png';
 import sobre3 from '../assets/images/Sobre3.png';
@@ -9,16 +7,6 @@ import sobre4 from '../assets/images/Sobre4.png';
 const packImages = [sobre1, sobre2, sobre3, sobre4];
 
 const Pack = ({ index, onOpen, isLocked, timer }) => {
-  const { decrementTimer } = useAlbum();
-
-  useEffect(() => {
-    if (timer > 0) {
-      const interval = setInterval(() => {
-        decrementTimer(index);
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [timer, index, decrementTimer]);
 
   return (
     <motion.div

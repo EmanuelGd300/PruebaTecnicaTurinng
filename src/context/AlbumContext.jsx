@@ -12,8 +12,16 @@ export const AlbumProvider = ({ children }) => {
 
   const [packTimers, setPackTimers] = useState(() => {
     const saved = localStorage.getItem('packTimers');
-    return saved ? JSON.parse(saved) : [0, 0, 0, 0];
+    return saved ? JSON.parse(saved) : {};
   });
+
+  const [showClearModal, setShowClearModal] = useState(false);
+  const [showIntroModal, setShowIntroModal] = useState(false);
+
+  const handleClearStorage = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
 
   useEffect(() => {
     localStorage.setItem('starWarsAlbum', JSON.stringify(album));
@@ -22,6 +30,23 @@ export const AlbumProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('packTimers', JSON.stringify(packTimers));
   }, [packTimers]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPackTimers(prev => {
+        const updated = { ...prev };
+        let changed = false;
+        Object.keys(updated).forEach(key => {
+          if (updated[key] > 0) {
+            updated[key]--;
+            changed = true;
+          }
+        });
+        return changed ? updated : prev;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const addCard = (type, id, data) => {
     setAlbum(prev => ({
@@ -34,19 +59,12 @@ export const AlbumProvider = ({ children }) => {
     return !!album[type + 's']?.[id];
   };
 
-  const lockPacks = (currentIndex) => {
-    const newTimers = packTimers.map((_, idx) => 
-      idx === currentIndex ? 0 : 60
-    );
-    setPackTimers(newTimers);
+  const lockPack = (index) => {
+    setPackTimers(prev => ({ ...prev, [index]: 60 }));
   };
 
-  const decrementTimer = (index) => {
-    setPackTimers(prev => {
-      const newTimers = [...prev];
-      if (newTimers[index] > 0) newTimers[index]--;
-      return newTimers;
-    });
+  const getPackTimer = (index) => {
+    return packTimers[index] || 0;
   };
 
   return (
@@ -54,9 +72,13 @@ export const AlbumProvider = ({ children }) => {
       album, 
       addCard, 
       hasCard, 
-      packTimers, 
-      lockPacks, 
-      decrementTimer 
+      lockPack,
+      getPackTimer,
+      showClearModal,
+      setShowClearModal,
+      showIntroModal,
+      setShowIntroModal,
+      handleClearStorage
     }}>
       {children}
     </AlbumContext.Provider>

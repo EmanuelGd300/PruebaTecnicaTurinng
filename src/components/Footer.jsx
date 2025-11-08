@@ -21,7 +21,7 @@ const Footer = () => {
             <p className="flex items-center gap-2 justify-center">
               <span className="text-star-yellow">📧</span>
               <a href="mailto:emmanuelgodi22@gmail.com" className="hover:text-star-yellow transition-colors">
-                emmanuelgodi22@gmail.com
+                emmanuelgodi22<span style={{fontFamily: 'sans-serif'}}>@</span>gmail.com
               </a>
             </p>
             <p className="flex items-center gap-2 justify-center">
@@ -56,7 +56,7 @@ const Footer = () => {
         </div>
 
         <div className="text-center text-gray-400 text-sm mt-6 pt-6 border-t border-gray-700">
-          <p>© 2024 Emanuel Gómez Díaz - Star Wars Album - Prueba Técnica Turinng</p>
+          <p>© 2025 Emanuel Gómez Díaz - Star Wars Album - Prueba Técnica Turinng</p>
         </div>
       </div>
     </footer>
